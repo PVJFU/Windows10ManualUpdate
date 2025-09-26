@@ -22,3 +22,11 @@ Another approach is to use Registry files:
 Be sure you know how to backup registry and undo changes that are declared in these files. These files are like 10 lines long: don't hesitate to read them!
 
 ![App User Interface](https://github.com/slavanap/Windows10ManualUpdate/blob/master/app_ui.gif?raw=true)
+
+# Licensing
+
+This is a fork of [slavanap's Windows10ManualUpdate](https://github.com/slavanap/Windows10ManualUpdate) which is licensed under the MIT license. A copy of the license can be found in [LICENSE_slavanap.txt](../main/LICENSE_slavanap.txt).
+
+Additionally, this fork uses [vrnobody's net45action](https://github.com/vrnobody/net45action) GitHub Workflow file which is also licensed under the MIT license. A copy of the license can be found in [LICENSE_vrnobody.txt](../main/LICENSE_vrnobody.txt)
+
+The new code and modifications this fork has the rights to is - to the maximum extent possible by law - licensed under the 0BSD license. A copy of the license can be found in [LICENSE.txt](../main/LICENSE.txt). Please note that this 0BSD license does not overrule the above's MIT licenses and they must still be followed.
