@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:w10mu"
         mc:Ignorable="d"
-        Title="Windows 10 Manual Update" Height="403.948" Width="411.842">
+        Title="Windows 10 Manual Update" Height="403.948" Width="411.842" Background="{DynamicResource WindowBackgroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Margin="12">
+        <Grid Margin="12" Background="{DynamicResource ControlBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="12"/>
@@ -23,32 +23,47 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="List of applicable updates:"/>
-                <ListBox Grid.Row="1" x:Name="_list" SelectionChanged="ListSelectionChanged" SelectionMode="Single">
+                <TextBlock Text="List of applicable updates:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
+                <ListBox Grid.Row="1" x:Name="_list" SelectionChanged="ListSelectionChanged" SelectionMode="Single"
+                        Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}"
+                        ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBarStyle}"/>
+                    </ListBox.Resources>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Background="{Binding Background}">
-                                <CheckBox Margin="0,0,5,0" IsChecked="{Binding Path=IsChecked}" Background="Transparent"/>
-                                <TextBlock Text="{Binding Path=Title}" Background="Transparent"/>
+                                <CheckBox Margin="0,0,5,0" IsChecked="{Binding Path=IsChecked}"
+                                        Background="Transparent" Foreground="{DynamicResource ControlForegroundBrush}"/>
+                                <TextBlock Text="{Binding Path=Title}" Background="Transparent" Foreground="{DynamicResource ListItemForegroundBrush}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="{DynamicResource BorderBrush}"/>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Description:"/>
-                <RichTextBox Grid.Row="1" x:Name="_description" IsReadOnly="True" IsDocumentEnabled="True" Margin="0,0,0,12" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+                <TextBlock Text="Description:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
+                <RichTextBox Grid.Row="1" x:Name="_description" IsReadOnly="True" IsDocumentEnabled="True" Margin="0,0,0,12"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}">
+                    <RichTextBox.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBarStyle}"/>
+                    </RichTextBox.Resources>
+                </RichTextBox>
             </Grid>
-            <Button Grid.Row="3" x:Name="_installButton" Content="Install updates" HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False" />
+            <Button Grid.Row="3" x:Name="_installButton" Content="Install updates"
+                    HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False"
+                    Background="{DynamicResource ButtonBackgroundBrush}" Foreground="{DynamicResource ButtonForegroundBrush}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"/>
         </Grid>
-        <StatusBar Grid.Row="1">
+        <StatusBar Grid.Row="1" Background="{DynamicResource StatusBarBackgroundBrush}">
             <StatusBarItem>
-                <TextBlock Name="_status" />
+                <TextBlock Name="_status" Foreground="{DynamicResource StatusBarForegroundBrush}" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

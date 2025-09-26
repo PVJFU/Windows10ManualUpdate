@@ -167,6 +167,8 @@ namespace w10mu {
 
         public MainWindow() {
             InitializeComponent();
+            // Ensure theme is applied when window is created
+            ThemeManager.ApplySystemTheme();
         }
 
         private async void Install_Click(object sender, RoutedEventArgs e) {
