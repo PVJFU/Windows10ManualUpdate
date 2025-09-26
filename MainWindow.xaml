@@ -45,12 +45,38 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Description:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
                 <RichTextBox Grid.Row="1" x:Name="_description" IsReadOnly="True" IsDocumentEnabled="True" Margin="0,0,0,12"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"
                             Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}"/>
             </Grid>
             <Button Grid.Row="3" x:Name="_installButton" Content="Install updates"
-                    HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False"
-                    Background="{DynamicResource ButtonBackgroundBrush}" Foreground="{DynamicResource ButtonForegroundBrush}"
-                    BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+                    HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrush}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrush}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="2">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ButtonDisabledForegroundBrush}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
         <StatusBar Grid.Row="1" Background="{DynamicResource StatusBarBackgroundBrush}">
             <StatusBarItem>
