@@ -1,24 +1,21 @@
-name: daily build test
+name: Produce build
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '52  19 * * *'  # 03:52 UTC+8
-  push:
-    branches: ['main']
+  pull_request:
 
 jobs:
   build:
     runs-on: windows-2025
 
     env:
-      projName: net45action
+      projName: w10mu
       buildCfg: Release
       net45SdkUrl: 'https://www.nuget.org/api/v2/package/Microsoft.NETFramework.ReferenceAssemblies.net45/1.0.3'
       sdkSystemPath: 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework'
 
     steps:
-      - name: Install .net framework 4.5 SDK
+      - name: Install .NET Framework 4.5 SDK
         shell: pwsh
         run: |
           echo "download ${env:net45SdkUrl}"
@@ -36,14 +33,14 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
-      - name: Setup VSTest Path
-        uses: darenm/Setup-VSTest@v1.2
-
       - name: Restore packages
         run: nuget restore ${env:projName}.sln
 
       - name: Build
         run: msbuild ${env:projName}.sln -p:Configuration=${env:buildCfg}
 
-      - name: Run unit tests
-        run: vstest.console.exe "${env:projName}.test\bin\${env:buildCfg}\${env:projName}.test.dll"
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: bin\Release\${{env.projName}}.exe
