@@ -25,11 +25,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="List of applicable updates:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
                 <ListBox Grid.Row="1" x:Name="_list" SelectionChanged="ListSelectionChanged" SelectionMode="Single"
-                        Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                    <ListBox.Resources>
-                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBarStyle}"/>
-                    </ListBox.Resources>
+                        Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Background="{Binding Background}">
@@ -49,12 +45,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Description:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
                 <RichTextBox Grid.Row="1" x:Name="_description" IsReadOnly="True" IsDocumentEnabled="True" Margin="0,0,0,12"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                            Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}">
-                    <RichTextBox.Resources>
-                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBarStyle}"/>
-                    </RichTextBox.Resources>
-                </RichTextBox>
+                            Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}"/>
             </Grid>
             <Button Grid.Row="3" x:Name="_installButton" Content="Install updates"
                     HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False"
