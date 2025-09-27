@@ -58,22 +58,28 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
+                                    <Border x:Name="border" Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}"
                                             CornerRadius="2">
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ButtonBorderBrush}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                            <Setter TargetName="border" Property="Foreground" Value="{DynamicResource ButtonDisabledForegroundBrush}"/>
+                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource ButtonDisabledForegroundBrush}"/>
-                                <Setter Property="BorderBrush" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
-                            </Trigger>
-                        </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
