@@ -21,7 +21,7 @@ Another approach is to use Registry files:
 
 Be sure you know how to backup registry and undo changes that are declared in these files. These files are like 10 lines long: don't hesitate to read them!
 
-![App User Interface](https://github.com/slavanap/Windows10ManualUpdate/blob/master/app_ui.gif?raw=true)
+![App User Interface](../main/app_ui.png?raw=true)
 
 # Licensing
 
