@@ -25,17 +25,66 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="List of applicable updates:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
                 <ListBox Grid.Row="1" x:Name="_list" SelectionChanged="ListSelectionChanged" SelectionMode="Single"
-                        Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Background="{Binding Background}">
-                                <CheckBox Margin="0,0,5,0" IsChecked="{Binding Path=IsChecked}"
-                                        Background="Transparent" Foreground="{DynamicResource ControlForegroundBrush}"/>
-                                <TextBlock Text="{Binding Path=Title}" Background="Transparent" Foreground="{DynamicResource ListItemForegroundBrush}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                        Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}">
+                                    <ListBox.Resources>
+                                        <Style x:Key="ThemedCheckBoxStyle" TargetType="CheckBox">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource ControlForegroundBrush}"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="CheckBox">
+                                                        <BulletDecorator Background="Transparent">
+                                                            <BulletDecorator.Bullet>
+                                                                <Border x:Name="Border"
+                                                                        Width="16"
+                                                                        Height="16"
+                                                                        Background="{TemplateBinding Background}"
+                                                                        BorderBrush="{DynamicResource ControlForegroundBrush}"
+                                                                        BorderThickness="1"
+                                                                        CornerRadius="2">
+                                                                    <Path x:Name="CheckMark"
+                                                                          Width="10"
+                                                                          Height="10"
+                                                                          Margin="2"
+                                                                          Data="M 0 5 L 4 9 L 10 0"
+                                                                          Stroke="{DynamicResource ControlForegroundBrush}"
+                                                                          StrokeThickness="2"
+                                                                          StrokeStartLineCap="Round"
+                                                                          StrokeEndLineCap="Round"
+                                                                          StrokeLineJoin="Round"
+                                                                          SnapsToDevicePixels="True"
+                                                                          Visibility="Hidden"/>
+                                                                </Border>
+                                                            </BulletDecorator.Bullet>
+                                                            <ContentPresenter Margin="4,0,0,0"
+                                                                              HorizontalAlignment="Left"
+                                                                              VerticalAlignment="Center"
+                                                                              RecognizesAccessKey="True"/>
+                                                        </BulletDecorator>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                                                <Setter TargetName="CheckMark" Property="Data" Value="F1 M 0,0 L 10,10 M 0,10 L 10,0"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.Resources>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Background="{Binding Background}">
+                                                <CheckBox Margin="0,0,5,0" IsChecked="{Binding Path=IsChecked}"
+                                                        Background="Transparent" Foreground="{DynamicResource ControlForegroundBrush}"
+                                                        Style="{StaticResource ThemedCheckBoxStyle}"/>
+                                                <TextBlock Text="{Binding Path=Title}" Background="Transparent" Foreground="{DynamicResource ListItemForegroundBrush}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
             </Grid>
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="{DynamicResource BorderBrush}"/>
             <Grid Grid.Row="2">
