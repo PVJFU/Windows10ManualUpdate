@@ -160,7 +160,7 @@ namespace w10mu {
                     _installButton.IsEnabled = true;
                 }
                 catch (Exception ex) {
-                    MessageBox.Show(this, ex.ToString(), "Exception has occured!");
+                    MessageBox.Show(this, ex.ToString(), "Exception has occurred!");
                 }
             }
         }
@@ -220,7 +220,7 @@ namespace w10mu {
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show(this, ex.ToString(), "Exception has occured!");
+                MessageBox.Show(this, ex.ToString(), "Exception has occurred!");
             }
 
             _installButton.IsEnabled = true;
