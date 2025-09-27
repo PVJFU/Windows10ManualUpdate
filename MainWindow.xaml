@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:w10mu"
         mc:Ignorable="d"
-        Title="Windows 10 Manual Update" Height="403.948" Width="411.842">
+        Title="Windows 10 Manual Update" Height="403.948" Width="411.842" Background="{DynamicResource WindowBackgroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Margin="12">
+        <Grid Margin="12" Background="{DynamicResource ControlBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="12"/>
@@ -23,32 +23,118 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="List of applicable updates:"/>
-                <ListBox Grid.Row="1" x:Name="_list" SelectionChanged="ListSelectionChanged" SelectionMode="Single">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Background="{Binding Background}">
-                                <CheckBox Margin="0,0,5,0" IsChecked="{Binding Path=IsChecked}" Background="Transparent"/>
-                                <TextBlock Text="{Binding Path=Title}" Background="Transparent"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <TextBlock Text="List of applicable updates:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
+                <ListBox Grid.Row="1" x:Name="_list" SelectionChanged="ListSelectionChanged" SelectionMode="Single"
+                                        Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}">
+                                    <ListBox.Resources>
+                                        <Style x:Key="ThemedCheckBoxStyle" TargetType="CheckBox">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource ControlForegroundBrush}"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="CheckBox">
+                                                        <BulletDecorator Background="Transparent">
+                                                            <BulletDecorator.Bullet>
+                                                                <Border x:Name="Border"
+                                                                        Width="16"
+                                                                        Height="16"
+                                                                        Background="{TemplateBinding Background}"
+                                                                        BorderBrush="{DynamicResource ControlForegroundBrush}"
+                                                                        BorderThickness="1"
+                                                                        CornerRadius="2">
+                                                                    <Path x:Name="CheckMark"
+                                                                          Width="10"
+                                                                          Height="10"
+                                                                          Margin="2"
+                                                                          Data="M 0 5 L 4 9 L 10 0"
+                                                                          Stroke="{DynamicResource ControlForegroundBrush}"
+                                                                          StrokeThickness="2"
+                                                                          StrokeStartLineCap="Round"
+                                                                          StrokeEndLineCap="Round"
+                                                                          StrokeLineJoin="Round"
+                                                                          SnapsToDevicePixels="True"
+                                                                          Visibility="Hidden"/>
+                                                                </Border>
+                                                            </BulletDecorator.Bullet>
+                                                            <ContentPresenter Margin="4,0,0,0"
+                                                                              HorizontalAlignment="Left"
+                                                                              VerticalAlignment="Center"
+                                                                              RecognizesAccessKey="True"/>
+                                                        </BulletDecorator>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                                                <Setter TargetName="CheckMark" Property="Data" Value="F1 M 0,0 L 10,10 M 0,10 L 10,0"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.Resources>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Background="{Binding Background}">
+                                                <CheckBox Margin="0,0,5,0" IsChecked="{Binding Path=IsChecked}"
+                                                        Background="Transparent" Foreground="{DynamicResource ControlForegroundBrush}"
+                                                        Style="{StaticResource ThemedCheckBoxStyle}"/>
+                                                <TextBlock Text="{Binding Path=Title}" Background="Transparent" Foreground="{DynamicResource ListItemForegroundBrush}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
             </Grid>
-            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="{DynamicResource BorderBrush}"/>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Description:"/>
-                <RichTextBox Grid.Row="1" x:Name="_description" IsReadOnly="True" IsDocumentEnabled="True" Margin="0,0,0,12" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+                <TextBlock Text="Description:" Foreground="{DynamicResource HeaderForegroundBrush}"/>
+                <RichTextBox Grid.Row="1" x:Name="_description" IsReadOnly="True" IsDocumentEnabled="True" Margin="0,0,0,12"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource ControlForegroundBrush}"/>
             </Grid>
-            <Button Grid.Row="3" x:Name="_installButton" Content="Install updates" HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False" />
+            <Button Grid.Row="3" x:Name="_installButton" Content="Install updates"
+                    HorizontalAlignment="Right" Width="140" Height="25" Click="Install_Click" IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrush}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrush}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="2">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ButtonBorderBrush}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
-        <StatusBar Grid.Row="1">
+        <StatusBar Grid.Row="1" Background="{DynamicResource StatusBarBackgroundBrush}">
             <StatusBarItem>
-                <TextBlock Name="_status" />
+                <TextBlock Name="_status" Foreground="{DynamicResource StatusBarForegroundBrush}" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

@@ -11,5 +11,17 @@ namespace w10mu {
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            try
+            {
+                ThemeManager.ApplySystemTheme();
+            }
+            catch (Exception)
+            {
+                // If theme application fails, continue with default theme
+            }
+            base.OnStartup(e);
+        }
     }
 }
